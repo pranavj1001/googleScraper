@@ -3,6 +3,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 
 /**
@@ -20,6 +21,8 @@ public class GoogleScraper {
 
         //System.out.println(page.outerHtml());
 
+        final PrintWriter file = new PrintWriter("searchResults.txt");
+
         for (Element searchResult : page.select("h3.r a")){
 
             String title = searchResult.text();
@@ -27,7 +30,11 @@ public class GoogleScraper {
 
             System.out.println(title + " -> " + url);
 
+            file.write(title + " -> " + url + "\n\n");
+
         }
+
+        file.close();
 
     }
 

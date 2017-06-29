@@ -1,5 +1,6 @@
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -13,11 +14,20 @@ public class GoogleScraper {
 
     public static void main(String[] args) throws IOException {
 
-        final String query = "Sony";
+        final String query = "pranavj1001";
 
-        final Document page = Jsoup.connect("https://www.google.com/?q=" + URLEncoder.encode(query, "UTF-8")).userAgent(USER_AGENT).get();
+        final Document page = Jsoup.connect("https://www.google.com/search?q=" + URLEncoder.encode(query, "UTF-8")).userAgent(USER_AGENT).get();
 
         //System.out.println(page.outerHtml());
+
+        for (Element searchResult : page.select("h3.r a")){
+
+            String title = searchResult.text();
+            String url = searchResult.attr("href");
+
+            System.out.println(title + " -> " + url);
+
+        }
 
     }
 
